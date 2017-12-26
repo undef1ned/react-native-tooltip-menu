@@ -14,12 +14,12 @@ const StylePropType = PropTypes.oneOfType([
   PropTypes.object,
 ]);
 
-const TooltipMenuItem = ({ onPress, containerStyle, touchableStyle, label, labelStyle }) => (
+const TooltipMenuItem = ({ onPress, containerStyle, touchableStyle, label, selected, labelStyle, selectedStyle }) => (
   <View style={containerStyle}>
     <TouchableOpacity style={[styles.container, touchableStyle]} onPress={onPress}>
       {
         typeof label === 'string' ?
-          <Text style={[labelStyle]}>{label}</Text> :
+          <Text style={[selected ? selectedStyle : labelStyle]}>{label}</Text> :
           label()
       }
     </TouchableOpacity>

@@ -7,6 +7,7 @@ import TooltipMenuItem from './TooltipMenuItem';
 const {
   View,
   Modal,
+  Text,
   Animated,
   TouchableOpacity,
   StyleSheet,
@@ -92,14 +93,19 @@ class Tooltip extends React.Component {
       labelContainerStyle,
       touchableItemStyle,
       labelStyle,
+      selectedStyle,
       modalButtonStyle,
+      width,
+      height,
+      title,
+      titleStyle
     } = this.props;
     const { isModalOpen } = this.state;
     const { onRequestClose } = this.props;
     const widthStyle = mapWight(widthType);
 
     return (
-      <View style={styles.component}>
+      <View >
         <View
           style={[componentWrapperStyle]}
           onLayout={event => this.setState({ componentHeight: event.nativeEvent.layout.height })}
@@ -120,7 +126,10 @@ class Tooltip extends React.Component {
               style={[{ flex: 1 }, modalButtonStyle]}
               onPress={this.hideModal}
             >
-              <View style={[styles.component]}>
+              <View style={[styles.component, {
+                  top: height - 46,
+                  left: width - 111
+              }]}>
                 <Animated.View
                   style={[
                     styles.tooltipContainer,
@@ -131,6 +140,11 @@ class Tooltip extends React.Component {
                     { opacity: this.state.opacity },
                   ]}
                 >
+                {
+                    title &&
+                    <Text style={titleStyle}>{title}</Text>
+                }
+
                   {items.map((item, index) => {
                     const classes = [labelContainerStyle];
 
@@ -143,8 +157,10 @@ class Tooltip extends React.Component {
                         key={item.label}
                         label={item.label}
                         onPress={() => this.handleClick(item.onPress)}
+                        selected={item.selected}
                         containerStyle={classes}
                         touchableStyle={touchableItemStyle}
+                        selectedStyle={selectedStyle}
                         labelStyle={labelStyle}
                       />
                     );
@@ -201,17 +217,16 @@ const styles = StyleSheet.create({
   },
   tooltipMargin: {
     borderBottomWidth: 1,
-    borderBottomColor: '#E1E1E1',
+    borderBottomColor: '#F9F9F9',
   },
   component: {
     position: 'absolute',
-    bottom: 15,
-    left: 15,
   },
   tooltipContainer: {
     backgroundColor: 'white',
     borderRadius: 10,
     position: 'absolute',
+    left: -100
   },
   triangle: {
     position: 'absolute',
