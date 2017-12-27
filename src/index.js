@@ -26,6 +26,7 @@ const mapWight = (type) => {
       return {
         width: window.width * 0.9,
       };
+
     default:
       return null;
   }
@@ -136,7 +137,6 @@ class Tooltip extends React.Component {
                     {
                       bottom: this.state.componentHeight + 10,
                     },
-                    widthStyle,
                     { opacity: this.state.opacity },
                   ]}
                 >
@@ -226,7 +226,8 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     borderRadius: 10,
     position: 'absolute',
-    left: -100
+    left: -100,
+    width: 200
   },
   triangle: {
     position: 'absolute',
